@@ -11,7 +11,7 @@ In class: Gaddis 2B slides.
 	- Java is known as an Object Oriented Programming (OOP) language.
 		- Objects are a big deal in Java! 
 		  
-- Float/double - Both are decimal-based primitive data types.
+- Float/double - Both are decimal-based primitive data types. 
 	- Mostly you should use **double**. 
 	- Float uses less memory (half) than double so it can be (slightly) faster.
 	- Using Double, you can represent scientific notation with e or E: 
