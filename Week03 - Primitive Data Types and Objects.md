@@ -1,24 +1,4 @@
 In class: Gaddis 2B slides.
-
->[!SUMMARY] Table of Contents
-
->    - [[Week03 - Primitive Data Types and Objects#Primitive Data Types |Primitive Data Types ]]
->    - [[Week03 - Primitive Data Types and Objects#Non-Primitive Data Types |Non-Primitive Data Types ]]
->    - [[Week03 - Primitive Data Types and Objects#Back to Primitives|Back to Primitives]]
->        - [[Week03 - Primitive Data Types and Objects#Float/double|Float/double]]
->        - [[Week03 - Primitive Data Types and Objects#Char|Char]]
->        - [[Week03 - Primitive Data Types and Objects#Variable Assignment and Initialization|Variable Assignment and Initialization]]
->        - [[Week03 - Primitive Data Types and Objects#Arithmetic operators|Arithmetic operators]]
->    - [[Week03 - Primitive Data Types and Objects#Casting - Convert a Type to Another |Casting - Convert a Type to Another ]]
->    - [[Week03 - Primitive Data Types and Objects#JShell|JShell]]
->    - [[Week03 - Primitive Data Types and Objects#Constants with `Final` |Constants with `Final` ]]
->    - [[Week03 - Primitive Data Types and Objects#More about Non-Primitive Data Types |More about Non-Primitive Data Types ]]
->        - [[Week03 - Primitive Data Types and Objects#String|String]]
->        - [[Week03 - Primitive Data Types and Objects#Methods|Methods]]
->        - [[Week03 - Primitive Data Types and Objects#Scanner|Scanner]]
->        - [[Week03 - Primitive Data Types and Objects#"Instance of a Class"|"Instance of a Class"]]
->        - [[Week03 - Primitive Data Types and Objects#`Parse` methods |`Parse` methods ]]
->        - [[Week03 - Primitive Data Types and Objects#Math Class|Math Class]]
 ## Primitive Data Types 
 - `byte`, `short`, `int`, `long`, `float`, `double`, `boolean` and `char`.
 - Great explainer of [Java Data Types](https://www.w3schools.com/java/java_data_types.asp) from w3schools.
