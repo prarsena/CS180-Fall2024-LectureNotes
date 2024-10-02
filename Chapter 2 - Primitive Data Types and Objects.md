@@ -1,4 +1,4 @@
-In class: Gaddis 2B slides.
+Class Material: Gaddis 2B PowerPoint.
 ## Primitive Data Types 
 - `byte`, `short`, `int`, `long`, `float`, `double`, `boolean` and `char`.
 - Great explainer of [Java Data Types](https://www.w3schools.com/java/java_data_types.asp) from w3schools.
