@@ -1,44 +1,19 @@
-In Class: Gaddis Ch 3 Slides (3.1 - 3.4, 3.5 -3.10)
-
+Lecture notes on Ch 3 from Professor Arsenault 
+Gaddis Ch 3 Slides (3.1 - 3.4, 3.5 -3.10)
 - Control flow (if)
 	- if
 	- if-else
 	- nested if
 	- if-else-if 
-- Logical Operators (&& and ||)
+	- Logical Operators (&& and ||)
+	- Boolean Flags
+	- Unary Operator (!)
+	- Ternary Operator 
+	- Switch (classic and modern)
 - Comparing String Objects
-	- Strings, being non-primitives, have methods for comparison. 
-- Variable declaration and scope
-- Conditional Operator
-	- Remember binary operators (+, -)? 
-	- Conditional operators can be considered **trinary operators**. Compact way of writing If statements.
-	- Can be very confusing. Not NEEDED. But may be extra credit in next assignment.
-- Switch statement
-	- Classic syntax 
-	- Java12+: Comma-separated Multi-values
-	- Java12+: arrow case syntax
-		- Like Scala, a very cool language.
-		- Switch expressions -> assign value directly to a variable with Yield. 
 - Formatted output
 	- printf
 	- String format
-
-# VACATION EXERCISE
-**Vacation Exercise!**
-	- Use a Scanner object 
-	- Create a var `int numberOfCities` to take the input of the question, "How many cities are you visiting on your vacation?"
-	- Create a var `String cityName` to take the input of the question, "What is one city you are visiting?"
-		- **Note**: when we learn loops, we can ask this question for as many cities as they are visitin. 
-	- Write an `if/else` statement. 
-		- If the user will visit 1 city, print "Have fun in *cityName*"
-		- If the user will visit more than 1 city, print "Have fun on your adventures!"
-	- Turn this `if/else` statement into an `if/else if` statement and add a condition for `0` cities. 
-	- Within the `0` condition, create a String variable called `wantsToTravelString` and set it to the input of the question, "Do you want to go travel?".
-	- Within the `0` condition, create a Char variable called `wantsToTravelChar`, and assign it to the upper-cased first Char of `wantsToTravelString`. 
-	- Within the `0` condition, write a nested if statement:
-		- If `wantsToTravelChar` is `Y`, print "Maybe next year!"
-		- If `wantsToTravelChar` is `N`, print "Enjoy your staycation!"
-	- Write a `Switch` statement (classic or modern) expressing the same conditions! 
 
 ## If statements
 If statements use **Relational Operators** to evaluate **Boolean Expressions**, which control the flow of a program. 
@@ -68,7 +43,7 @@ else {
 }
 ```
 
-But both conditions can't occur at the same time.
+Both conditions cannot both occur at the same time.
 
 Here's a better example:
 ```java
@@ -119,7 +94,7 @@ I highly recommend you use curly brackets every time for three reasons:
 ## Boolean variables as Flag
 Using Boolean variables as flags (Slide 14) is a commonly-used and important programming practice that allows you to check the current state of an operation.
 
-Here's an example. After we determine a score is above 59.9 (passing), we reassign a passingScore variable from `false` to `true`:
+Here's an example. After we determine a score is above 59.9 (passing), we reassign a `passingScore` variable from `false` to `true`:
 
 ```java
 double score = 95.5;  
@@ -138,23 +113,14 @@ if (passingScore) {
 }
 ```
 
-We know that Boolean expressions evaluate to `true` or `false`. 
-
 `if` statements only run if the expression is `true` (otherwise, only the `else` block is executed... if there is an `else` block).
 
 In the above, if the expression `score > 59.9`  does not evaluate to `true`, then `passingScore` does not change from `false` to `true`. After the first `if/else` statement executes, the program moves onto the second one. If `passingScore` is false, the block does not execute. But if `passingScore` is true, the block executes.
 
-Boolean flags are used to:
-- Indicate process completion.
-- Control the execution of loops
-- Execute code based on conditions.
-- Handle errors.
-- Resource management (if file is open, and the program closes, you should also close the file.)
-
 One great example would be with user login. Imagine you had an app that required a user to login: 
-1. Your app could have a `userLoggedIn` Boolean variable that is false. 
-2. When you open the app, there could be options like view profiles and login.
-3. A user clicks Login, you prompt the user for username and password. If it matches, set `userLoggedIn=true`.
+1. Your app could have a `userLoggedIn=false` Boolean variable. User is not logged in yet.  
+2. When the user opens the app, there could be some limited options. She can see a bit of data, but not all, and the user might get a prompt to log in (think: viewing a social media app when NOT logged in).
+3. A user clicks Login, you prompt the user for username and password (see: String Comparison methods). If it matches, set `userLoggedIn=true`.
 5. Back on the home screen, new options could be shown to the user, such as their username, and additional pages such as "Edit profile". These additional options only display because the Boolean flag `userLoggedIn=true`
 
 ## Comparing Chars
@@ -236,7 +202,6 @@ Whenever it finds the correct range of the score, it prints the grade and stops 
 *Exercise*: A good example with `TestResults.java` is to change every `else if` to `if` and run the program with different values. See how the output changes.
 
 ## Relationship between Nested If, If-else-if, and Switch
-
 #### Nested If
 - **Use Case**: Useful when you need to check multiple conditions that depend on each other.
 	- Loan: Must meet Salary req, and Years at Job req. 
@@ -245,15 +210,10 @@ Whenever it finds the correct range of the score, it prints the grade and stops 
 - **Use Case**: Useful for checking multiple conditions where each condition is mutually exclusive.
 #### Switch
 - **Use Case**: Ideal for checking a variable against multiple values. It is more readable and efficient than multiple `if-else-if` statements when dealing with many conditions.
-
-
-
-
 ## Logical operators
-- **Unary** (*YOU*-nary) logical NOT operator (`!`)- One operand, negates. 
-	- Provide example 
-- Binary logical operator (`&&`, `||` ) - Combine if conditions. Replacement for Nested If statements.
-- Ternary Conditional operator.  - A conditional operator is called a "ternary operator" because it takes three operands to function: 
+- The **Unary** (*YOU*-nary) logical NOT operator (`!`) uses **one operand** to negate a Boolean expression. 
+- **Binary logical operator** (`&&`, `||`) combine if conditions using **two operands**. They can help you replace Nested If statements.
+- **Ternary Conditional operator** takes **three** **operands** to function: 
 	- a condition, 
 	- a value to return if the condition is true, 
 	- and a value to return if the condition is false; 
@@ -263,32 +223,23 @@ The unary NOT operator (`!`) in Java is used to invert the logical state of its 
 
 The unary NOT operator is often used in `if` statements to execute code when a condition is false.
 
-It can be used to control loops, especially when you want to continue looping until a condition becomes true.
-
-```java
-boolean isRunning = true;
-while (!isRunning) {
-    // Perform some action
-}
-```
-
 The unary NOT operator is a way to avoid writing an `else` statement by inverting the condition in an `if` statement. This is particularly useful when you only want to execute a block of code if a condition is false.
 
 ```java
-public void checkAuthentication(boolean isAuthenticated) {
-    if (!isAuthenticated) {
-	    System.out.println("User is not authenticated. Please log in.");
-    }
-    // No need for an else statement here
+boolean isAuthenticated = true
+if (!isAuthenticated) {
+	System.out.println("User is not authenticated. Please log in.");
+	//Prompt user to login or kick them out of the program!
 }
+// No need for an ELSE statement here. We are all good!
 ```
 
 In this example, the message is printed only if `isAuthenticated` is `false`. If `isAuthenticated` is `true`, the code inside the `if` block is skipped, and the method continues without needing an `else` statement.
 
 ## Ternary Operator 
-- Ternary Operator is called that because "ternary" means "consisting of three parts" in mathematical terms.
+Ternary Operator is called that because "ternary" means "consisting of three parts" in mathematical terms. It is also called the Conditional Operator. 
 
-Ternary or Conditional Operator is a way to write the following if statement in a single line: 
+The Ternary operator is a way to write the following if statement in a single line: 
 ```java
 int x = 15;
 int y = 5;
@@ -300,14 +251,14 @@ if (x > y)
 else
   z = 5;
 
-// Determine condition using Conditional Operator
+// Determine condition using Ternary Operator
 int z = (x > y) ? 10 : 5;
 ```
 
-In `ConsultantCharges`, You enter the number of hours worked.
+In `ConsultantCharges.java`, You enter the number of hours worked.
 If you ever dealt with a consultant or a lawyer, they may have a minimum number of hours they can be paid for. In this case, if they work 4 hours, you have to pay them for 5. How could we write this using an if else statement? 
 
-### Ternary operators  
+### Use cases for ternary operators  
 Ternary operators are sometimes seen as confusing, but they are useful:
 
 1. **Simple Conditional Assignments**: Ternary operators are great for assigning values to variables based on a condition in a concise way. For example:
@@ -327,9 +278,10 @@ Ternary operators are sometimes seen as confusing, but they are useful:
 3. **Default Values**: Ternary operators are often used to assign default values when a variable might be null:
     
     ```java
-    String name = (user != null) ? user.getName() : "Guest";
+    String user = "Peter";
+    String name = (user != null) ? user : "Guest";
     ```
-    
+
 4. **Conditional Return Values**: They can be used to return values from functions based on conditions:
     
     ```java
@@ -353,46 +305,10 @@ String newMenu = menu.replace("Fish", "Chicken")
 	.replace("Dish", "Dinner").toUpperCase();
 ```
 
-Anyway, on Thursday night, Java made me look like an absolute fool. I told the class, *Hey class, you can't compare Strings like you do with primitives!* and then I proceeded to compare Strings like I did with primitives.   
+Last Thursday night, Java made me look like an absolute fool. I told the class, *Hey class, you can't compare Strings like you do with primitives!* and then I proceeded to compare Strings like I did with primitives. I wrote up a complicated reason about it but [this article](https://www.i-programmer.info/programmer-puzzles/170-java/2939-strings-and-things.html) does a better job at explaining it. 
 
-Primitive example: 
-```java
-if (5 == 4+1){
-	System.out.print("True");
-} else {
-	System.out.print("False");
-}
-// True
-```
-
-String example:
-```java
-if ("Max" == "Max"){
-	System.out.print("True");
-} else {
-	System.out.print("False");
-}
-// SHOULD PRINT False
-// PRINTS True 
-```
-
-In Java, the `==` operator compares the references (memory addresses) of objects, not their content. However, the comparison `("Max" == "Max")` returned `true` because of a concept called **string interning**.
-
-##### String Interning
-
-Java optimizes memory usage by storing only one copy of each distinct string value in a pool, known as the **string pool**. When you create a string literal, Java checks the pool to see if an identical string already exists. If it does, the reference to the existing string is returned. If not, the new string is added to the pool.
-
-##### Why `("Max" == "Max")` is `true`
-
-```java
-if ("Max" == "Max") {
-    System.out.println("True");
-}
-```
-
-Both `"Max"` literals refer to the same object in the string pool, so their references are identical, making the `==` comparison return `true`.
-### Recommended Approach
-
+The bottom line: You compare primitives using equals logical operator (`5 == 4+1`✅) but you shouldn't do this with Strings (`"Max" == "Max"`❌), although sometimes it works. Strings have two comparison methods
+### String equals()
 To compare the contents of two strings, always use the `.equals()` method:
 ```java
 String str1 = "Max";
@@ -406,7 +322,7 @@ if (str1.equals(str2)) {
 // True
 ```
 
-### Equals ignore Case
+### String equalsIgnoreCase()
 If you want to test String equality but don't care about case differences (for example, in a username where capital letters don't matter):
 ```java
 String str1 = "Max";
@@ -420,58 +336,10 @@ if (str1.equalsIgnoreCase(str2)) {
 // True
 ```
 
-
-## Switch
-The **`yield`** keyword and the **arrow syntax** were introduced to enhance the functionality and readability of switch statements in Java.
-### Arrow Syntax
-
-The arrow syntax (`->`) was introduced to simplify switch statements and eliminate the need for break statements, which were often a source of errors due to fall-through behavior. The arrow syntax makes the code more readable and less error-prone:
-
-```java
-switch (day) {
-    case MONDAY, FRIDAY, SUNDAY -> System.out.println("6 letters");
-    case TUESDAY -> System.out.println("7 letters");
-    case THURSDAY, SATURDAY -> System.out.println("8 letters");
-    case WEDNESDAY -> System.out.println("9 letters");
-}
-```
-
-This syntax ensures that each case is self-contained and does not fall through to the next case, which improves code clarity and maintainability
-These enhancements make switch statements more powerful and easier to use, aligning with modern programming practices.
-### Yield Keyword
-
-The `yield` keyword was introduced in Java 14 to be used within switch expressions. It allows a switch case to return a value, which can then be assigned to a variable. This makes switch expressions more concise and expressive. Here’s an example:
-
-```java
-String message = switch (number) {
-    case 1 -> "Got a 1";
-    case 2 -> "Got a 2";
-    default -> "More than 2";
-};
-```
-
-In this example, the `yield` keyword is implicit because the arrow syntax (`->`) directly returns the value. If you need to perform more complex operations within a case, you can explicitly use `yield`:
-
-```java
-String message = switch (number) {
-    case 1 -> {
-        // some complex logic
-        yield "Got a 1";
-    }
-    case 2 -> {
-        // some complex logic
-        yield "Got a 2";
-    }
-    default -> {
-        // some complex logic
-        yield "More than 2";
-    }
-};
-```
-
-The `yield` keyword ensures that the switch expression returns a value, making the code more robust and easier to understand.
-
-### Switch arrow assign to String example
+## Switch Statements
+Java Switch syntax has changed over time! The **`yield`** keyword and the **arrow syntax** were introduced to enhance the functionality and readability of switch statements in Java.
+The following shows the modern vs. the classic way of writing Switch statements. Use the modern syntax!! 💪
+### Modern switch example
 Here's the Switch example we did in class:
 
 ```java
@@ -489,7 +357,7 @@ String gradeMsg = switch(gradeLetter) {
 System.out.println(gradeMsg);
 ```
 
-Being able to assign a value directly to a variable improves code conciseness and readability. In the old days of Java, here's how some of the above would have been written: 
+Being able to assign a value directly to a variable improves code conciseness and readability. In the old days of Java, here's how that code would have been written: 
 
 ```java
 Scanner keyboard = new Scanner(System.in);
@@ -518,6 +386,52 @@ switch (gradeLetter) {
 System.out.println(gradeMsg);
 ```
 
+The above is still valid Java! It's just the old style. 
+### Arrow Syntax
+The arrow syntax (`->`) was introduced in Java 14 to simplify switch statements and eliminate the need for break statements, which were often a source of errors due to fall-through behavior:
+ 
+```java
+switch (day) {
+    case MONDAY, FRIDAY, SUNDAY -> System.out.println("6 letters");
+    case TUESDAY -> System.out.println("7 letters");
+    case THURSDAY, SATURDAY -> System.out.println("8 letters");
+    case WEDNESDAY -> System.out.println("9 letters");
+}
+```
+
+This syntax ensures that each case is **self-contained** and does not fall through to the next case, which improves code clarity and maintainability.
+
+These enhancements make switch statements more powerful and easier to use, aligning with modern programming practices.
+### Yield Keyword
+
+The `yield` keyword was introduced in Java 14 to be used within switch expressions. It allows a switch case to return a value, which can then be assigned to a variable.
+
+```java
+String message = switch (number) {
+    case 1 -> "Got a 1";
+    case 2 -> "Got a 2";
+    default -> "More than 2";
+};
+```
+
+In the above example, the `yield` keyword is implicit because the arrow syntax (`->`) directly returns the value. If you need to perform more complex operations within a case, you can explicitly use `yield`:
+
+```java
+String message = switch (number) {
+    case 1 -> {
+        // some complex logic
+        yield "Got a 1";
+    }
+    case 2 -> {
+        // some complex logic
+        yield "Got a 2";
+    }
+    default -> {
+        // some complex logic
+        yield "More than 2";
+    }
+};
+```
 
 ## Printf
 You can use the `System.out.printf` method to perform formatted console output.
@@ -567,11 +481,21 @@ the value is   9.77
 
 In the first example, the field is 6 spaces wide. The second is as well, but four spaces are used by the output. 
 
+Aligning text using spacing description between percentage and data type signifier. 
+
+Similar to adding commas and decimals (`%,.2f`) to indicate the need for commas and the number of decimal places, you can give a number to specify the width of the string (`%10s` will give you a formatted string of length 10). 
+
+By default, the string is right-aligned, but you can make it left-aligned by writing a MINUS sign before the width (example: `%-10s`). See this example:
+
 ```java
 // LEFT ALIGNED
 System.out.printf("%-15s: Peter %n", "name");  
 System.out.printf("%-15s: Bentley %n", "school");  
 System.out.printf("%-15s: CIS %n", "department");
+
+name           : Peter 
+school         : Bentley 
+department     : CIS 
 
 
 // RIGHT ALIGNED
@@ -579,25 +503,34 @@ System.out.printf("%15s: Peter %n", "name");
 System.out.printf("%15s: Bentley %n", "school");  
 System.out.printf("%15s: CIS %n", "department");
 
+           name: Peter 
+         school: Bentley 
+     department: CIS 
 
-System.out.printf("%-20s %,14.2f \n", "Yearly pay:", grossPay);  
-System.out.printf("%-20s %,14.2f \n", "Lifetime pay:", grossPay);
+
+// ALIGNING MULTIPLE VALUES
+System.out.printf("%-20s %,14.2f \n", "Yearly pay:", 9999999.99);  
+System.out.printf("%-20s %,14.2f \n", "Lifetime pay:", 9999999.99);
+
+Yearly pay:            9,999,999.99 
+Lifetime pay:             99,999.99 
+
 ```
 
-See Columns.java and CurrencyFormat.java.
-
-## String.format 
+See `Columns.java` and `CurrencyFormat.java`.
+## String format() 
 `String.format` in Java is used to create formatted strings without printing them directly to the console.
 
-The String.format method works exactly like the System.out.printf method, except that it does not display the formatted string on the screen. Instead, it returns a reference to the formatted string.
+The `String.format` method works exactly like the `System.out.printf` method, except that it does not display the formatted string on the screen. Instead, it returns a reference to the formatted string.
 
 You can assign the reference to a variable, and then use it later.
-`String.format(FormatString,ArgumentList);`
+```java
+String.format(FormatString,ArgumentList);
+```
 
 The difference is that `printf` just prints the formatted string but doesn't create a new variable. 
 
 ```java
-
 public class Main {
     public static void main(String[] args) {
         int number = 42;
@@ -608,11 +541,9 @@ public class Main {
         System.out.println(formattedString);
     }
 }
-
 ```
 
-
 See examples:
-- CurrencyFormat2.java
-- CurrencyFormat3.java
+- `CurrencyFormat2.java`
+- `CurrencyFormat3.java`
 
