@@ -23,6 +23,23 @@ In Class: Gaddis Ch 3 Slides (3.1 - 3.4, 3.5 -3.10)
 	- printf
 	- String format
 
+# VACATION EXERCISE
+**Vacation Exercise!**
+	- Use a Scanner object 
+	- Create a var `int numberOfCities` to take the input of the question, "How many cities are you visiting on your vacation?"
+	- Create a var `String cityName` to take the input of the question, "What is one city you are visiting?"
+		- **Note**: when we learn loops, we can ask this question for as many cities as they are visitin. 
+	- Write an `if/else` statement. 
+		- If the user will visit 1 city, print "Have fun in *cityName*"
+		- If the user will visit more than 1 city, print "Have fun on your adventures!"
+	- Turn this `if/else` statement into an `if/else if` statement and add a condition for `0` cities. 
+	- Within the `0` condition, create a String variable called `wantsToTravelString` and set it to the input of the question, "Do you want to go travel?".
+	- Within the `0` condition, create a Char variable called `wantsToTravelChar`, and assign it to the upper-cased first Char of `wantsToTravelString`. 
+	- Within the `0` condition, write a nested if statement:
+		- If `wantsToTravelChar` is `Y`, print "Maybe next year!"
+		- If `wantsToTravelChar` is `N`, print "Enjoy your staycation!"
+	- Write a `Switch` statement (classic or modern) expressing the same conditions! 
+
 ## If statements
 If statements use **Relational Operators** to evaluate **Boolean Expressions**, which control the flow of a program. 
 
