@@ -10,7 +10,10 @@ Gaddis Ch 3 Slides (3.1 - 3.4, 3.5 -3.10)
 	- Unary Operator (!)
 	- Ternary Operator 
 	- Switch (classic and modern)
-- Comparing String Objects
+- String methods
+	- String method chaining
+	- Substring (again)
+	- Comparing String Objects
 - Formatted output
 	- printf
 	- String format
@@ -297,7 +300,8 @@ Ternary operators are sometimes seen as confusing, but they are useful:
     ```
 
 
-## String Comparison methods
+## String methods 
+### String method chaining 
 ***Project 2B Tip:*** With String methods, you can combine multiple methods! Evaluated left to right. Example:
 ```java
 String menu = "Max's Fried Fish Dish"
@@ -305,6 +309,40 @@ String newMenu = menu.replace("Fish", "Chicken")
 	.replace("Dish", "Dinner").toUpperCase();
 ```
 
+### Substring method
+Examples of the substring method:
+
+```java
+String str = "Student Name: Jimmy Smith Student Major: Accounting";  
+System.out.printf("%-30s %s %n", "Original string->", str);  
+  
+/* The length of the original string will be useful to us! */  
+System.out.printf("%-30s %d %n%n", "Original string length->", str.length());  
+  
+/*  
+Print "Major: Accounting"  
+Index means "position". Index begins at 0!  
+If there is no "endIndex", the substring is from the index to the end of the original string.  
+*/  
+String studentMajor = str.substring(34);  
+System.out.printf("%-30s %s %n", "From Str Position 34->", studentMajor);  
+  
+/*  
+Print "Name: Jimmy Smith"  
+If you give a BeginIndex and EndIndex, you can specify how much of the string you want  
+in your substring.  
+*/  
+String studentName = str.substring(8, 25);  
+System.out.printf("%-30s %s %n", "Str Position 8 through 25->", studentName);  
+  
+/*  
+Bonus: You can use String.length() to count index backwards from end of String.  
+*/  
+String majorName = str.substring(str.length()-10);  
+System.out.printf("%-30s %s %n", "Str.length() minus 10->", majorName);  
+```
+
+### String comparison methods
 Last Thursday night, Java made me look like an absolute fool. I told the class, *Hey class, you can't compare Strings like you do with primitives!* and then I proceeded to compare Strings like I did with primitives. I wrote up a complicated reason about it but [this article](https://www.i-programmer.info/programmer-puzzles/170-java/2939-strings-and-things.html) does a better job at explaining it. 
 
 The bottom line: You compare primitives using equals logical operator (`5 == 4+1`✅) but you shouldn't do this with Strings (`"Max" == "Max"`❌), although sometimes it works. Strings have two comparison methods
