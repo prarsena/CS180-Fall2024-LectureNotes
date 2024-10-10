@@ -4,13 +4,17 @@ This in-class exercise will allow our program to have FOUR specific paths depend
 1. Initialize a Scanner object 
 2. Print: "How many cities are you visiting on your vacation?"
 3. Create an `int numberOfCities` variable assigned to an integer from the keyboard.
-4. Write an `if/else` statement. 
+5. Write an `if/else` statement. 
 	- If the user will visit 1 city: 
 		- Print: "What is one city you are visiting?"
 		- Create a `String cityName` variable assigned to a String from the keyboard (use `next()`).
 		- print "Have fun in *cityName*"
 	- else: 
 		- print "Have fun on your adventures!"
+
+
+
+
 ### Part 2
 1. Turn this `if/else` statement into an `if/else if/else` statement and add a else condition. 
 2. Change the "Have fun on your adventures" part to an `else if` statement by adding a condition to run if the user enters a number of cities greater than 1. 
