@@ -1,7 +1,6 @@
-**\[ WORK IN PROGRESS ]**
 Gaddis Chapter 4 slides
 - Increment/Decrement operators
-- Week 1: Loops
+- Loops
 	- While Loop
 	- Do-While Loop
 	- For Loop
@@ -9,16 +8,6 @@ Gaddis Chapter 4 slides
 		- Nested For Loops
 	- Break and continue
 	- Deciding which Loop to Use
-- Week 2: File input and output 
-	- Writing Text to a File with PrintWriter
-	- Exceptions
-	- Appending Text to a File with FileWriter
-	- Specifying a File Location
-	- Reading Data from a File with Scanner.
-	- Try-with-resources
-- Generating random numbers with the Random class.
-
-
 ## Increment and Decrement Operators
 Four ways to write these operations:
 ```java

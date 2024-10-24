@@ -26,6 +26,9 @@ randomNumbers.nextFloat();
 randomNumbers.nextInt();
 //This method accepts an integer argument, n.  It returns a random number as an int.  The number will be within the range of 0 to n.
 randomNumbers.nextInt(int n);
+
+randomNumbers.nextInt(int start, int bound);
+
 ```
 
 You might remember the Math object has a method called Random. The primary difference between Java's `Random` class and the `Math.random()` method lies in their functionality and use cases:
@@ -52,6 +55,14 @@ randomDouble = random.nextDouble();  // Random double between 0.0 and 1.0`
 **Example**:
 ```java
 double randomValue = Math.random();  // Random double between 0.0 and 1.0
+
+// Use Math.random() to generate a random double (0.0 - 1.0)  
+// multiply by 100 to turn it into an int.  
+double randomDouble = Math.random();  
+System.out.println(randomDouble);  
+System.out.println(randomDouble*100);  
+System.out.println(Math.round(randomDouble*100));  
+System.out.printf("%.0f %n", randomDouble*100);
 ```
 
 #### Summary
@@ -71,8 +82,6 @@ So I'd like to introduce you to the file-based objects we'll be working with:
 - File
 - Scanner (you already know Scanner)
 
-Tonight we'll basically only focus on PrintWriter and FileWater. 
-
 These objects must be imported, similarly to Scanner, except Scanner is in java.util, while file objects are in java.io:
 ```
 import java.util.Scanner;   // Needed for Scanner class
@@ -85,7 +94,7 @@ It's called PRINT-writer because it has `print` and `println` methods like Syste
 
 - To open a file for text output you create an instance of the PrintWriter class.
   `PrintWriter outputFile = new PrintWriter("StudentData.txt");`
-  Pass the name of a file that you want to open as an argument to the PrintWriter object constructor. **Warning:** if the file already exists, it will be erased and replaced with a new file. 
+  Pass the name of a file that you want to open as an argument to the PrintWriter object constructor. **Warning:** if the file already exists, it will be OVERWRITTEN with a new file. 
 	- Unless you specify a directory, the file is written in the location where the java class is run from.
 - The PrintWriter class allows you to write data to a file using the `print` and `println` (and `printf` methods, as you have been using to display data on the screen.
 	- Just as with the System.out object, the `println` method of the PrintWriter class will place a newline character after the written data.
@@ -184,7 +193,7 @@ Can't write to this location
 java.io.FileNotFoundException:  (No such file or directory)
 ```
 
-However, we are focused right now on passing the exception up the line. To do this, the method must use a `throw` clause in the method header. To insert a throws clause in a method header, simply add the word throws and the name of the expected exception.
+However, we are focused right now on passing the exception up the line. To do this, the method must use a `throws` clause in the method header. To insert a throws clause in a method header, simply add the word throws and the name of the expected exception.
 
 PrintWriter objects throw a `FileNotFoundException`, so we write the throws clause like this:
 
@@ -325,7 +334,203 @@ Information from the slides that I need to test for Tuesday:
 - Double backslash is only necessary if the backslash is in a string literal. If the backslash is in a String object then it will be handled properly. Need to test String literal vs. String object.
 - Java allows Unix style filenames using the forward slash (/) to separate directories. Need to test this on Windows. It works on Mac, but Mac is basically unix. 
 - Java for accessing System variables. On Windows, there is an environment variable for OneDrive. 
+- What is the difference between FileWriter and File? You can still write to a File object. 
+
+### Stray observations
+You must close the PrintWriter object or nothing will be written to the file!!
 
 
 ## File and Scanner - Reading data from a file
-Coming soon.. 
+
+### File Object Methods
+
+```java
+import java.io.*;  
+// File object demonstration.  
+// Uses methods such as getName(), getAbsolutePath(), exists(), mkdir(),  
+//      delete(), renameTo(), and length() (size in bytes).  
+  
+public class FileDemoByPeter {  
+    public static void main(String[] args) throws IOException {  
+  
+        // Create or Overwrite data to a file called friends.txt in current directory.  
+        File oldFile = new File("friends.txt");  
+        // A file can also be a directory if no file type is specified.  
+        File dir = new File("testDirectory");  
+  
+        // Add file contents using PrintWriter.  
+        PrintWriter fileContents = new PrintWriter(oldFile);  
+        fileContents.println("First line of the file.");  
+        fileContents.printf("Second line of the file called %s %n", oldFile.getName());  
+		fileContents.printf("Absolute path of this original file: %s %n", oldFile.getAbsolutePath());  
+		fileContents.print("This is the last line of the file! \n");
+  
+        // File isn't written until PrintWriter is closed.  
+        System.out.printf("Size of UNCLOSED file in bytes: %d %n", oldFile.length());  
+        fileContents.close();  
+        // File gets written with new content after PrintWriter is closed.  
+        System.out.printf("Size of CLOSED file in bytes: %d %n", oldFile.length());  
+  
+        // The File object has exists() and mkdir() methods.  
+        // Use a Unary operator to say: if directory does not exist, then make it!        if (!dir.exists()){  
+            dir.mkdir();  
+        }  
+  
+        // Specify the destination location for the file  
+        File newFile = new File(dir + "/" + oldFile);  
+  
+        if (newFile.exists()){  
+            newFile.delete();  
+            // Move file to new directory.  
+            oldFile.renameTo(newFile);  
+        }  
+  
+        System.out.println("Old filepath: " + oldFile.getAbsolutePath());  
+        System.out.println("New filepath: " + newFile.getAbsolutePath());  
+          
+        System.out.println("Can new file be read? " + newFile.canRead());  
+        System.out.println("Can new file be written to? " + newFile.canWrite());  
+        System.out.println("Can new file be executed? " + newFile.canExecute());  
+  
+    }  
+}
+```
+
+### File with Scanner
+You use the File object and the Scanner object to read data from a file:
+```java
+File myFile = new File("Customers.txt");
+Scanner inputFile = new Scanner(myFile);
+```
+
+Usage example:
+```java
+import java.io.File;  
+import java.io.FileNotFoundException;  
+import java.util.Scanner;  
+  
+public class FileDemoByPeterWithScanner {  
+    public static void main(String[] args) throws FileNotFoundException {  
+        File myFile = new File("testDirectory/friends.txt");  
+        Scanner inputFile = new Scanner(myFile);  
+        /*  
+        // Read the first line of the file.        
+        String str = inputFile.nextLine();        
+        System.out.println(str);        */  
+        // Read and print every line using a while loop and Scanner's hasNext() method.        while (inputFile.hasNext()) {  
+            String str = inputFile.nextLine();  
+            if (str.contains("Second")){  
+                System.out.println("FOUND!");  
+            }  
+            System.out.println(str);  
+  
+        }  
+  
+        inputFile.close();  
+    }  
+}
+```
+
+## `try`-with-resources
+The try-with-resources statement can be used to open a file and automatically close the file. 
+
+#### PrintWriter Example:
+```java
+import java.io.*;  
+public class TryWithResources {  
+    public static void main(String[] args) throws FileNotFoundException {  
+        try (PrintWriter outputFile = new PrintWriter("MusicArtists.txt")){  
+		    outputFile.println("The Cure");  
+		    outputFile.println("The Smiths");  
+		    outputFile.println("Joy Division");  
+		    outputFile.println("Green Day");  
+		    outputFile.println("The The");  
+		    outputFile.println("The Beach Boys");  
+		    outputFile.println("Talking Heads");  
+		    outputFile.println("Neutral Milk Hotel");  
+		    outputFile.println("The Magnetic Fields");  
+		    outputFile.println("The Velvet Underground");  
+		}
+    }  
+}
+```
+
+- This example opens a file named MusicArtists.txt
+- Code inside the braces can use the PrintWriter object to write data to the file
+- When the code inside the braces has finished, the file is automatically closed
+
+#### Level 1 Scanner Example: 
+```java
+import java.io.*;  
+import java.util.Scanner;  
+  
+public class TryWithResources {  
+    public static void main(String[] args) throws FileNotFoundException{
+		int currentLine = 1;
+        try (Scanner inputFile = new Scanner(new File("MusicArtists.txt"))){  
+            while(inputFile.hasNext()){  
+                String str = inputFile.nextLine();  
+                System.out.printf("%-5d %s %n", currentLine, str);             }  
+        }  
+    }  
+}
+```
+
+- This example opens a file named MusicArtists.txt
+- Code inside the braces can use the Scanner object to read data from the file
+- When the code inside the braces has finished, the file is automatically closed
+
+#### Level 2 Scanner Examples:
+
+```java
+import java.io.*;  
+import java.util.Scanner;  
+  
+public class TryWithResources {  
+    public static void main(String[] args) throws FileNotFoundException{  
+
+        int theAccumulator = 0;  
+        int bandsWithTheInTheName = 0;  
+        int bandsWithoutTheInTheName = 0;  
+        int currentLine = 1;  
+        try (Scanner inputFile = new Scanner(new File("MusicArtists.txt"))){  
+            while(inputFile.hasNext()){  
+                String str = inputFile.nextLine();  
+                System.out.printf("%-5d %s %n", currentLine, str);  
+                if (str.contains("The")){  
+                    bandsWithTheInTheName++;  
+  
+                    int firstThe = str.indexOf("The");  
+                    int secondThe = str.lastIndexOf("The");  
+                    if (firstThe != secondThe){  
+                        theAccumulator+=2;  
+                    } else {  
+                        theAccumulator++;  
+                    }  
+                } else {  
+                    bandsWithoutTheInTheName++;  
+                }  
+                currentLine++;  
+            }  
+        }  
+  
+        System.out.printf("%n%-30s %d %n", "Bands with \"The\" in name:", bandsWithTheInTheName);  
+        System.out.printf("%-30s %d %n", "Bands without \"The\" in name:", bandsWithoutTheInTheName);  
+        System.out.printf("%-30s %d %n", "Total \"The\"s:", theAccumulator);  
+    }  
+}
+```
+
+#### Opening multiple files 
+Opening two files with a try-with-resources statement:
+```java
+try (Scanner inputFile = new Scanner(new File("File1.txt"));
+     PrintWriter outputFile = new PrintWriter("File2.txt")){
+   // Statements that work with both files…
+}
+```
+
+- This example opens a file named File1.txt for reading and a file named File2.txt for writing
+- Code inside the braces can use the Scanner object to read data from File1.txt and the PrintWriter object to write data to File2.txt
+- When the code inside the braces has finished, both files are automatically closed
+

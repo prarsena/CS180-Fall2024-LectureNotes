@@ -216,3 +216,9 @@ Sarah
 ```
 
 ### Nested For Loops for Art
+
+## Java http server exploits
+
+web server HTTP headers should use the Latin1 encoding of bytes, but sometimes they use UTF8
+http-garden repo from Ben
+
