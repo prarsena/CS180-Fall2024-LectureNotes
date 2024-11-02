@@ -222,3 +222,14 @@ Sarah
 web server HTTP headers should use the Latin1 encoding of bytes, but sometimes they use UTF8
 http-garden repo from Ben
 
+
+## Get all system information
+```java
+public class Main {
+  public static void main(String[] args) {
+		     System.getProperties().list(System.out);
+     System.getenv()
+  }
+}
+
+```
