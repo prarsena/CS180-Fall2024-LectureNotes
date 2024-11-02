@@ -251,7 +251,7 @@ public class MyClass {
 
 
 ## Simplest Method Example
-The simplest method would be one that doesn't take any parameters nor return anything. One use case for this would be to simply print something to the console, like a program header or maybe even some cool ASCII art.  
+The simplest method would be one that doesn't take any parameters nor return anything. One use case for this would be to simply print something to the console, like a program header or maybe even [some cool ASCII art.](#bonus-print-grim-reaper-ascii-art-method)  
 
 A method is `void` if it doesn't return anything.  Void methods are usually used for displaying information. Methods that also don't take any parameters are standalone methods. Nothing goes into them, so data isn't changed.  Here's an example: 
 
