@@ -267,7 +267,9 @@ public class MethodMan {
 }
 ```
 
-However, a method can still be void and take one or more input parameters. In this case, your input parameters change the output of the method. Here's an example:
+This method is not flexible at all. It only does one thing, and it's not that interesting (unless of course you're printing the grim reaper).
+## Next Simplest Method Example (One input parameter)
+If we add one element to our simple method -- an **input parameter** -- we gain flexibility. The method can do different things depending on what we provide for input. Here's an example:
 ```java
 public class MethodMan {  
 	public static void main(String[] args) {  
@@ -282,7 +284,44 @@ public class MethodMan {
 }
 ```
 
+We have redefined our method to take one input parameter -- a String that we call `name`. Parameter names are like variables. We come up with our own descriptive name for them. We define the parameter name in the method header, and we use it in the method body. 
 
+What's also important about input parameters is the data type. In the above example, we say that `name` is a String. When we call the method from main, we provide a String. You must provide data of the correct type when calling a method. Here's another example with a different data type.
+
+```java
+public class MethodMan {  
+	public static void main(String[] args) {  
+		printHello(1);
+		printHello(6);
+		printHello(99);  
+	}  
+	  
+	public static void printHello(int number){  
+		System.out.println("Hello, you are my #" + number + " favorite student");  
+	}  
+}
+```
+
+Finally, our method is still void. It still doesn't return any data, it merely prints data to the console. 
+
+## Methods with multiple input parameters
+The final thing to mention about void methods is that they can take multiple input parameters. 
+
+```java
+public class MethodMan {  
+	public static void main(String[] args) {  
+		printStudentInfo("Sally Smith", 3.75);
+		printStudentInfo("Richard Wright", 4.0);
+		printStudentInfo("Michael Mantia", 2.4);
+	}  
+	  
+	public static void printStudentInfo(String name, double gpa){  
+		System.out.printf("%20s %d %n", name, gpa);  
+	}  
+}
+```
+
+You simply private the parameter types and names in a comma-separated list in the method header. Then when you call the method, provide your data in the correct format (and correct order!). 
 
 ## BONUS! Print Grim Reaper ASCII Art Method
 
