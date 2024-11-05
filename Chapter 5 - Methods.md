@@ -5,7 +5,9 @@ Chapter 5 discusses the following main topics:
 - Returning a Value from a Method
 - Problem Solving with Methods
 
-## Note about Chapter 5 Source Code files in IntelliJ
+## Notes and Clarifications
+Sometimes I don't get things right on the first go-around. I'm only human!
+### Chapter 5 Source Code files in IntelliJ
 There are some errors in the Chapter 5 Source Code project. We might fix them as part of the lessons, but for now: 
 
 1. Delete `TwoArgs2.java` and `ValueReturn.java`.
@@ -17,8 +19,7 @@ There are some errors in the Chapter 5 Source Code project. We might fix them as
 //displayData(length, width, area);
 ```
 
-
-## Note about Classes and Objects
+### Classes vs. Objects
 In lectures, I use the terms "Class" and "Object" interchangeably. I ask, "Can someone name a Java Object?" and say "Classes have methods", but I am referring to the same set of things. 
 
 Java Objects or Classes that we know include String, Scanner, File, PrintWriter, FileWriter, Random, Math, System, and (a bit of) the "wrapper" classes: Integer, Double, Boolean (which make Primitive Data Types behave like Java Objects).
@@ -79,7 +80,7 @@ class Car {
 }
 ```
 
-## Note about Parameters and Arguments
+### Parameters vs. Arguments
 Classes have methods. Methods can take input parameters, but they are not required! They are written in the parentheses after the method name. Multiple parameters are separated by a comma.
 
 > Parameters go in parentheses!
@@ -138,7 +139,6 @@ a random number between the first and the second number.
 randomNumber.nextInt(1, 6);
 ```
 
-
 Parameters make methods more flexible and reusable, so you can adapt the method to various situations (I'm not stuck driving a Ford Escape!). 
 
 Similar to the difference between Class and Object (Blueprint vs. Actual Thing), a Parameter is part of the blueprint while the Argument is the actual value:
@@ -149,6 +149,9 @@ Similar to the difference between Class and Object (Blueprint vs. Actual Thing),
 In the above example, `Random.nextInt(int bound)` takes one parameter to determine a boundary for the random integer. 
 
 The argument I gave `randomNumber.nextInt(100)` says that my Random object should produce a number with a boundary of 0 - 100.  
+
+### Exceptions vs. Errors
+
 
 ## What are Methods?
 Methods are reusable pieces of code that allow you to perform a task on an object (a class).
@@ -194,6 +197,7 @@ All the parts of the header make up the **Method Signature**.
 ![[Pasted image 20241102111135.png]]
 
 ### Method Modifiers 
+(slides 7 and 8)
 Method modifiers are the most mysterious members of the method header. I feel they are poorly understood because they are poorly explained! 
 
 There are two types of modifiers: Access and Non-Access. 
@@ -218,6 +222,17 @@ The return type can be a primitive (boolean), an object (String), a custom objec
 
 To declare the type, write it after any Method Modifier. 
 
+## Calling a Method
+(Slide 9)
+A method executes when it is called.
+
+The `main` method is automatically called when a program starts, but other methods are executed by method call statements.
+```java
+displayMessage()
+```
+Notice that the method modifiers and the void return type are not written in the method call statement. Those are only written in the method header.
+
+Examples: SimpleMethod.java, LoopCall.java, CreditCard.java, DeepAndDeeper.java
 ## Static vs. Instance methods
 Take note of the difference between the Static method `staticMethod()` and the `instanceMethod()`.
 1. In the method signature, only `staticMethod()` uses the `static` modifier
@@ -249,8 +264,8 @@ public class MyClass {
 }
 ```
 
-
-## Simplest Method Example
+## Void Method Examples
+### Simplest Method Example
 The simplest method would be one that doesn't take any parameters nor return anything. One use case for this would be to simply print something to the console, like a program header or maybe even [some cool ASCII art.](#bonus-print-grim-reaper-ascii-art-method)  
 
 A method is `void` if it doesn't return anything.  Void methods are usually used for displaying information. Methods that also don't take any parameters are standalone methods. Nothing goes into them, so data isn't changed.  Here's an example: 
@@ -261,14 +276,15 @@ public class MethodMan {
 		printHello();  
 	}  
 	  
-	public static void printHello(){  
+	public static void printHello(){ 
 		System.out.println("Hello");  
 	}  
 }
 ```
 
 This method is not flexible at all. It only does one thing, and it's not that interesting (unless of course you're printing the grim reaper).
-## Next Simplest Method Example (One input parameter)
+### Next Simplest Method Example (One input parameter)
+(Slide 11-12)
 If we add one element to our simple method -- an **input parameter** -- we gain flexibility. The method can do different things depending on what we provide for input. Here's an example:
 ```java
 public class MethodMan {  
@@ -286,6 +302,7 @@ public class MethodMan {
 
 We have redefined our method to take one input parameter -- a String that we call `name`. Parameter names are like variables. We come up with our own descriptive name for them. We define the parameter name in the method header, and we use it in the method body. 
 
+(Slide 13)
 What's also important about input parameters is the data type. In the above example, we say that `name` is a String. When we call the method from main, we provide a String. You must provide data of the correct type when calling a method. Here's another example with a different data type.
 
 ```java
@@ -304,7 +321,8 @@ public class MethodMan {
 
 Finally, our method is still void. It still doesn't return any data, it merely prints data to the console. 
 
-## Methods with multiple input parameters
+### Methods with multiple input parameters
+(Slide 14)
 The final thing to mention about void methods is that they can take multiple input parameters. 
 
 ```java
@@ -322,6 +340,33 @@ public class MethodMan {
 ```
 
 You simply private the parameter types and names in a comma-separated list in the method header. Then when you call the method, provide your data in the correct format (and correct order!). 
+
+## Arguments are Passed by Value
+(Slide 15 - 17)
+
+## Strings are immutable objects
+(Slide 18)
+
+## More about Local Variables
+(Slide 20)
+
+## Returning a value from a method
+(Slide 21-27)
+See example: ReturnString.java
+
+## Problem Solving with Methods
+(Slide 28)
+A large, complex problem can be solved a piece at a time by methods. The process of breaking a problem down into smaller pieces is called functional decomposition. 
+See example: SalesReport.java
+
+If a method calls another method that has a throws clause in its header, then the calling method should have the same throws clause.
+
+## Calling Methods That Throw Exceptions
+Note that the `main` and `getTotalSales` methods in `SalesReport.java` throw `IOException`s.
+
+All methods that use a Scanner object to open a file must throw or handle `IOException`. Check out the notes in [Chapter 4 - Files: Exceptions](Chapter%204%20-%20Files.md#exceptions) section for handling exceptions.
+
+For now, understand that Java required any method that interacts with an external entity, such as the file system to either throw an exception to be handles elsewhere in your application or to handle the exception locally.
 
 ## BONUS! Print Grim Reaper ASCII Art Method
 
