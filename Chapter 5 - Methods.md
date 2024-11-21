@@ -19,67 +19,6 @@ There are some errors in the Chapter 5 Source Code project. We might fix them as
 //displayData(length, width, area);
 ```
 
-### Classes vs. Objects
-In lectures, I use the terms "Class" and "Object" interchangeably. I ask, "Can someone name a Java Object?" and say "Classes have methods", but I am referring to the same set of things. 
-
-Java Objects or Classes that we know include String, Scanner, File, PrintWriter, FileWriter, Random, Math, System, and (a bit of) the "wrapper" classes: Integer, Double, Boolean (which make Primitive Data Types behave like Java Objects).
-
-In most cases it is okay that I use the terms interchangeably, but there is a technical difference between the two terms:
-
-- **Class**: A blueprint or template for creating objects. It defines the properties (fields) and behaviors (methods) that the objects created from the class will have.
-- **Object**: An instance of a class. It is created based on the class blueprint and has its own state and behavior as defined by the class.
-
-The class is like a blueprint, and the object is like house we build from the blueprint. In Java, the blueprint is usually flexible (and we can write our own blueprints). 
-
-Let's say we write a Java class called Car and it had the following properties:
-```java
-public class Car {
-	String make = "Ford";
-	String model = "Escape";
-	int year = 2020;
-	String color = "Blue";
-	int numberOfDoors = 4;
-}
-```
-
-If we want to use the Car object in another class, we'd import it (just like with Scanner, etc.) and then instantiate it:
-```java
-import petes.cool.Car;
-public class TestClass{
-	Car petesCar = new Car();  
-	System.out.println("Prof's ex wife drives a " + 
-						petesCar.make + " " + petesCar.model);
-}
-```
-
-In the above example, we **instantiated** the Java class `Car`, which made a Java object that we called `petesCar`.  This is our local copy of that Java Class. 
-
-In the `Car` class, we can do more work to write a class **constructor** that allows us to set the make, model, year, etc.  
-```java
-public class SampleClassesClass {  
-	public static void main(String[] args) {  
-		Car petesCar = new Car("Toyota", "Corolla");  
-		
-		System.out.println("Prof drives a " + 
-						petesCar.make + " " + petesCar.model);  
-						
-		Car niasCar = new Car("Ford", "Escape");  
-		
-		System.out.println("Nia drives a " + 
-						niasCar.make + " " + niasCar.model);  
-	}  
-}  
-  
-class Car {  
-	String make;  
-	String model;  
-	public Car(String carObjectMake, String carObjectModel){  
-		make = carObjectMake;  
-		model = carObjectModel;  
-	}  
-}
-```
-
 ### Parameters vs. Arguments
 Classes have methods. Methods can take input parameters, but they are not required! They are written in the parentheses after the method name. Multiple parameters are separated by a comma.
 
@@ -144,15 +83,13 @@ Parameters make methods more flexible and reusable, so you can adapt the method 
 Similar to the difference between Class and Object (Blueprint vs. Actual Thing), a Parameter is part of the blueprint while the Argument is the actual value:
 
 - **Parameter**: A variable in the method definition that accepts the value passed to the method. It’s like a placeholder.
+  `Random.nextInt(int start, int boundary)`
 - **Argument**: The actual value that is passed to the method when it is called.
+  `randomNumber.nextInt(1, 6)`
 
 In the above example, `Random.nextInt(int bound)` takes one parameter to determine a boundary for the random integer. 
 
 The argument I gave `randomNumber.nextInt(100)` says that my Random object should produce a number with a boundary of 0 - 100.  
-
-### Exceptions vs. Errors
-
-
 ## What are Methods?
 Methods are reusable pieces of code that allow you to perform a task on an object (a class).
 In other languages, `methods` are called `functions`.  
@@ -217,23 +154,8 @@ There are two types of modifiers: Access and Non-Access.
 - **strictfp**: The method adheres to strict floating-point calculations.
 
 Obviously, you shouldn't worry about most of those. In fact, the most important modifier to learn is `static`, and the access modifier are also important to know.
-### Method Return Type
-The return type can be a primitive (boolean), an object (String), a custom object (a class that YOU write yourself), or void (nothing). 
 
-To declare the type, write it after any Method Modifier. 
-
-## Calling a Method
-(Slide 9)
-A method executes when it is called.
-
-The `main` method is automatically called when a program starts, but other methods are executed by method call statements.
-```java
-displayMessage()
-```
-Notice that the method modifiers and the void return type are not written in the method call statement. Those are only written in the method header.
-
-Examples: SimpleMethod.java, LoopCall.java, CreditCard.java, DeepAndDeeper.java
-## Static vs. Instance methods
+### Static vs. Instance methods
 Take note of the difference between the Static method `staticMethod()` and the `instanceMethod()`.
 1. In the method signature, only `staticMethod()` uses the `static` modifier
 2. When calling the `staticMethod()`, we just call it. 
@@ -264,7 +186,29 @@ public class MyClass {
 }
 ```
 
-## Void Method Examples
+### Method Return Type
+The return type can be: 
+- a primitive (boolean)
+- an object (String)
+- a custom object (a class that YOU write yourself.. example: Car)
+- void (nothing). 
+
+To declare the type, write it after any Method Modifier. 
+
+There can only be one return type. But you can write a custom class that combined different primitives and classes. 
+
+## Calling a Method
+(Slide 9)
+A method executes when it is called.
+
+The `main` method is automatically called when a program starts, but other methods are executed by method call statements.
+```java
+displayMessage()
+```
+Notice that the method modifiers and the void return type are not written in the method call statement. Those are only written in the method header.
+
+Examples: SimpleMethod.java, LoopCall.java, CreditCard.java, DeepAndDeeper.java
+## No Return (Void) Method Examples
 ### Simplest Method Example
 The simplest method would be one that doesn't take any parameters nor return anything. One use case for this would be to simply print something to the console, like a program header or maybe even [some cool ASCII art.](#bonus-print-grim-reaper-ascii-art-method)  
 
@@ -341,18 +285,117 @@ public class MethodMan {
 
 You simply private the parameter types and names in a comma-separated list in the method header. Then when you call the method, provide your data in the correct format (and correct order!). 
 
-## Arguments are Passed by Value
-(Slide 15 - 17)
-
-## Strings are immutable objects
-(Slide 18)
-
-## More about Local Variables
-(Slide 20)
-
-## Returning a value from a method
+## Return a Value from a Method
 (Slide 21-27)
 See example: ReturnString.java
+
+```java
+public static void main(String[] args) {  
+	for (int i = 0; i < 20; i++){  
+	int result = squareNumber(i);  
+	System.out.println(i + " squared is " + result);  
+	}  
+}  
+  
+public static int squareNumber(int number){  
+	return number * number;  
+}
+
+```
+
+## Passing Arguments by Value vs. by Reference
+(Slide 15 - 17)
+In Java, all arguments are passed by value, but this can be a bit confusing because of how Java handles objects and primitives.
+
+1. **Primitives**: When you pass a primitive type (like `int`, `double`, etc.), Java passes a **copy of the value**. Changes to the parameter inside the method do not affect the original value.    
+    ```java
+    public static void main(String[] args) {
+        int num = 5;
+        modifyPrimitive(num);
+        System.out.println(num); // Output: 5
+    }
+    
+    static void modifyPrimitive(int n) {
+        n = 10;
+    }
+    ```
+2. **Objects**: When you pass an object, Java passes a copy of the reference to the object. This means that while the reference itself is passed by value, the object it points to can be modified within the method.    
+    ```java
+    public static void main(String[] args) {
+        MyObject obj = new MyObject();
+        obj.value = 5;
+        modifyObject(obj);
+        System.out.println(obj.value); // Output: 10
+    }
+    
+    static void modifyObject(MyObject o) {
+        o.value = 10;
+    }
+    
+    static class MyObject {
+        int value;
+    }
+    ```
+
+In summary, Java always passes arguments by value, but for objects, the value is the reference to the object, allowing the method to modify the object’s fields.
+
+```java
+public static void main(String[] args) {  
+int myNum = 5;  
+myNum = modifyPrimitive(myNum);  
+System.out.println(myNum);  
+}  
+static int modifyPrimitive(int n) {  
+n = 10;  
+return n;  
+}
+
+```
+### Passing Argument by Value
+
+In Java, all arguments of the primitive data types are passed by value, which means that o**nly a copy of an argument’s value** is passed into a parameter variable.
+
+A method’s parameter variables are separate and distinct from the arguments that are listed inside the parentheses of a method call.
+
+If a parameter variable is changed inside a method, it has no affect on the original argument.
+
+See example: PassByValue.java
+
+### Passing Object References to a Method
+Recall that a class type variable does not hold the actual data item that is associated with it, but holds the memory address of the object. A variable associated with an object is called a reference variable.
+
+When an object such as a String is passed as an argument, it is actually a reference to the object that is passed.
+
+![[Pasted image 20241105181505.png]]
+### Strings are immutable objects
+(Slide 18)
+When we say “Strings are immutable objects” in Java, it means that once a `String` object is created, its value cannot be changed. Any operation that seems to modify a `String` actually creates a new `String` object with the modified value, leaving the original `String` unchanged.
+
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        String str = "Hello";
+        str = str.concat(" World");
+        System.out.println(str); // Output: Hello World
+    }
+}
+```
+
+In this example, the `concat` method does not change the original `String` “Hello”. Instead, it creates a new `String` “Hello World” and assigns it to `str`.
+
+You can reassign a `String` variable to a new `String` as long as the variable is not declared as `final`. However, this reassignment does not change the original `String` object; it simply points the variable to a new `String` object.
+### More about Local Variables
+(Slide 20)
+A local variable is declared inside a method and is not accessible to statements outside the method.
+
+Different methods can have local variables with the same names because the methods cannot see each other’s local variables.
+
+A method’s local variables exist only while the method is executing. When the method ends, the local variables and parameter variables are destroyed, and any values stored are lost.
+
+Local variables are not automatically initialized with a default value and must be given a value before they can be used.
+
+See example: LocalVars.java
 
 ## Problem Solving with Methods
 (Slide 28)

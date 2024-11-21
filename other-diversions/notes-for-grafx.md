@@ -1,4 +1,4 @@
-
+[work in progress]
 In main, add Scanner to choose between invert and pixelate:
 
 ```java
