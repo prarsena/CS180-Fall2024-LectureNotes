@@ -166,5 +166,108 @@ greet(message = "Hey", name = "Bob")  // Output: Hey, Bob!
 ```
 
 
-### Java workaround for Optional Input Parameters
-There is a class introduced to the Java API in Java 8 called Optional. 
+### Java Optional class
+There is a class introduced to the Java API in Java 8 called Optional. It doesn't work as well as the languages listed above, since you can't leave out references to each input parameter (and manually specify whether it contains a value or it doesn't). 
+
+Here's an example of an object that uses the Optional class, as well as the public executable class that uses the object:
+
+```java
+import java.util.Optional;  
+  
+public class RunOptionalParameters {  
+	public static void main(String[] args) {  
+		PersonWithOptionalParameter a = new PersonWithOptionalParameter("John Wayne", Optional.empty());  
+		PersonWithOptionalParameter b = new PersonWithOptionalParameter("John Doe", Optional.of(650));  
+		  
+		System.out.println("Print Message with Optional Values");  
+		printMessage("Hi", Optional.of(a), Optional.of(10));  
+		System.out.println("Print Message without Optional Values");  
+	}  
+	  
+	public static void printMessage(String message, Optional<PersonWithOptionalParameter> person, Optional<Integer> times) {  
+		int repeat = times.orElse(1);  
+		  
+		for (int i = 0; i < repeat; i++) {  
+		System.out.println(message);  
+		}  
+	}  
+}  
+  
+class PersonWithOptionalParameter {  
+	private String name;  
+	private int creditScore;  
+	  
+	public PersonWithOptionalParameter(String name, Optional<Integer> creditScore){  
+		this.name = name;  
+		this.creditScore = creditScore.orElse(6);  
+	}  
+	  
+	public String getName() {  
+		return name;  
+	}  
+}
+```
+
+
+
+## Java Builder pattern
+To avoid verbosity and improve maintainability, you can use the Builder pattern, which provides a more flexible and readable way to create objects with multiple optional parameters.
+
+```java
+public class Person {
+    private String firstName;
+    private String lastName;
+    private int age;
+    private String address;
+
+    private Person(PersonBuilder builder) {
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.age = builder.age;
+        this.address = builder.address;
+    }
+
+    public static class PersonBuilder {
+        private String firstName;
+        private String lastName;
+        private int age;
+        private String address;
+
+        public PersonBuilder(String firstName) {
+            this.firstName = firstName;
+        }
+
+        public PersonBuilder lastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public PersonBuilder age(int age) {
+            this.age = age;
+            return this;
+        }
+
+        public PersonBuilder address(String address) {
+            this.address = address;
+            return this;
+        }
+
+        public Person build() {
+            return new Person(this);
+        }
+    }
+
+    // Getters and setters...
+
+    public static void main(String[] args) {
+        Person person = new Person.PersonBuilder("John")
+                .lastName("Doe")
+                .age(30)
+                .address("123 Main St")
+                .build();
+        // Use the person object...
+    }
+}
+```
+
+The Builder pattern simplifies the creation of objects with multiple parameters, making the code more readable and easier to maintain.

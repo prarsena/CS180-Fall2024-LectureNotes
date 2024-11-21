@@ -427,7 +427,11 @@ Car seamusCar = new Car();
 With Java, your constructor arguments must be in the correct order of an existing constructor.
 
 ### Optional reading: Optional values
-Optional or named input parameters are not supported by default in Java! 😔😓 This is lame and definitely something I will look at after I am elected president of Java.  
+Optional or named input parameters are not supported by default in Java! 😔😓 This is not cool! and definitely something I will look at after I am elected president of Java.  
+
+See [other-diversions/optional-and-named-arguments](other-diversions/optional-and-named-arguments.md) for an overview and workaround.
+
+There's a Java design pattern called the Builder pattern that provides a more flexible and readable way to create objects with multiple optional parameters.
 
 
 ## Uninitialized Local Reference Variables
@@ -466,14 +470,86 @@ public static void displayRectangle(Rectangle r){
 }
 ```
 
-When you pass an object as an argument to a method, the method will almost always be **static** and all the instance methods are available. 
+When you pass an object as an argument to a method, the method will almost always be **static** and all the instance methods are available. You can use this to access and mutate information about the particular object.
+
 
 ## Returning objects from methods
 Methods are not limited to returning the primitive data types. Methods can return references to objects as well. Just as with passing arguments, a copy of the object is not returned, only its address.
 
-See example: ReturnObject.java
+It is mostly used in [Factory design patterns](https://www.baeldung.com/java-factory-pattern), where you have a Factory class that handles the creation of object instances. 
 
-## toString() method
+We won't cover this topic in any greater detail in this course, but here is an example of two methods that return custom objects. They act like constructor methods, but they allow you to set different default values depending on your business needs:  
+
+```java
+public class Car {
+	private String type;
+	private String model;
+	private String year; 
+	
+	public static Car createElectricCar(String model, int year) {
+		return new Car("Electric", model, year);
+	}
+	public static Car createGasCar(String model, int year) {
+		return new Car("Gas", model, year);
+	}
+
+    public static void main(String[] args) {
+        Car electricCar = Car.createElectricCar("Model S", 2024);
+        Car gasCar = Car.createGasCar("Jeep Wrangler", 2002);
+    }
+}
+```
+
+## LET'S BUILD A SOCIAL NETWORK
+
+1. Add a new package to Chapter 06 called `FriendBook`. 
+2. Create a `User` object class with these fields:
+
+```java
+private int id = generateID();
+private String username;
+private String password;
+private String school;
+private String quote;
+private List<User> friends
+```
+
+3. Write getter methods for all fields.
+4. Write setter methods for quote.
+5. Write a four-arg constructor to set the username, password, school, and quote. 
+6. Write a generateID() method that returns a Random int between 9999 and 99999.
+7. Make a file in the same package called `TestFriendBook`. Run the file:  
+
+```java
+// TestFriendbook.java
+package FriendBook;  
+  
+public class TestFriendBook {  
+	public static void main(String[] args) {  
+		User john = new User("John Doe", "password", "Springfield High", "I finally learned how to write without a pencil.");  
+		User jane = new User("Jane Smith", "password", "Riverview Academy", "I’m outta here! See you all at the 10-year reunion.");  
+		User alex = new User("Alex Johnson", "password", "Mountainview High", "I’m not a complete idiot. Some parts are missing.");  
+		User emily = new User("Emily Brown", "password", "Lakeside School", "I’m not late; I’m just early for tomorrow.");  
+		User michael = new User("Michael Davis", "password","Greenwood High", "I didn’t choose the school life; the school life chose me.");  
+		User sarah = new User("Sarah Wilson", "password", "Sunnydale High", "I’m 100% certain that I am 0% sure of what I’m doing.");  
+		User david = new User("David Martinez", "password","Riverside High", "I’m not arguing; I’m just explaining why I’m right.");  
+		User laura = new User("Laura Garcia", "password","Hilltop Academy", "I’m not lazy; I’m on energy-saving mode.");  
+		User james = new User("James Lee", "password","Westside High", "I’m not a procrastinator; I’m just extremely productive at unimportant things.");  
+		User sophia = new User("Sophia Kim", "password","Eastwood High", "I’m not weird; I’m limited edition.");  
+
+
+		System.out.println("ID: " + james.getId());  
+		System.out.println("Username: " + james.getUsername());  
+		System.out.println("School: " + james.getSchool());  
+		System.out.println("Quote: " + james.getQuote());
+		//User.printUserProfile(sophia);  
+		//System.out.println(sophia.toString());  
+	}  
+}
+```
+
+8. Move the print statements into the `User` class as a static void method called `printUserProfile` that takes `User u` as an input parameter. Uncomment the relevant line in `TestFriendbook` are see if it runs. 
+## Custom object .toString() method
 All objects have a toString() method that returns the class name and a hash of the memory address of the object. It is also called implicitly whenever you try to print the object: 
 
 ```java
@@ -526,3 +602,16 @@ System.out.println(sarah);
 // Quote: "I’m 100% certain that I am 0% sure of what I’m doing." 
 ```
 
+## Custom object .equals() method
+You can also override the default .equals() method of the object, which compares memory locations. You can set it to a value that makes sense within the context of the object or business requirements:
+
+```java
+public boolean equals(User user2){  
+	if(username.equals(user2.username)){  
+			return true;  
+		} else {  
+			return false;  
+		}  
+	}  
+}
+```
