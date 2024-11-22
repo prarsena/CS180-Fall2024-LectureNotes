@@ -46,5 +46,10 @@ Here are some examples of the actual source code of Java object classes that we 
 - [Random](https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/util/Random.java)
 - [Scanner](https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/util/Scanner.java)
 - [Timer](https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/util/Timer.java)
-- 
-In fact, all our friends are there [classes/java]().  Math.round, etc.
+
+## Access Lecture Notes on GitHub
+1. Install git on your local machine via the command line. 
+2. Use the command line to navigate to a directory where you want to access the lecture notes. 
+3. Run `git clone https://github.com/prarsena/CS180-Fall2024-LectureNotes.git`
+4. Open the directory in a text editor such as Obsidian. 
+5. If I say there are updates, run `git pull` in the `CS180-Fall2024-LectureNotes` directory to get the latest changes.
