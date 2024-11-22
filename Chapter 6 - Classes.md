@@ -1,7 +1,7 @@
 ## TL;DR
 Every Java file is a class. We say it's either Executable or an Object class.
-- Executable classes have a `main` method which executes sequentially. (`TestRectangle.java`). These runnable classes. Inside of executable classes, you can create as many objects as you want, including custom Objects that you write. 
-- Object classes don't have `main` method, not runnable. (`Rectangle`, `TestStudent`)
+- Executable classes have a `main` method which executes sequentially. (`TestRectangle`, `TestStudent`). These runnable classes. Inside of executable classes, you can create as many objects as you want, including custom Objects that you write. 
+- Object classes don't have `main` method, not runnable. (`Rectangle`, `Student`)
 	- Object classes have fields. Fields are object descriptors. When you create an object, it has those fields. You can set those fields by writing **setter** methods or **constructors**. Object Fields are private. You write a **getter** method to access a field.  
 ## IntelliJ Chapter 06 Source Code
 1. Open `Source Code\Chapter 06` as a project in IntelliJ. 
@@ -42,11 +42,7 @@ Object classes in Java have fields and methods.
 - **Fields** are the data stored about an object (Rectangle has `length` and `width` fields). Fields are like variables except they have an access modifier (`private` or `public`). Fields should be `private` so that other classes don't access the data directly. 
   
 - **Methods** are the operations that an object can perform. We know methods from Chapter 5. Examples for object classes include a **set** and a **get** method for each **field** (For example, `setLength` and `getLength`).
-
-A special type of method is a **Constructor**.  
-- A constructor is a method that is automatically called when an object is created.
-- Constructors are used to perform operations at the time an object is created.
-- Constructors typically initialize instance fields and perform other object initialization tasks.
+	- A special type of method is a **Constructor**.  
 
 Here is the full `Rectangle.java` object class, which we will look at as we go:
 ```java
@@ -54,9 +50,9 @@ public class Rectangle {
 	private double length;  
 	private double width;  
 	  
-	public Rectangle(double len, double wid){  
-		length = len;  
-		width = wid;  
+	public Rectangle(double length, double width){  
+		this.length = length;  
+		this.width = width;  
 	}  
 	  
 	public void setLength(double len){  
@@ -120,7 +116,7 @@ public class Thing {
 	}  
 	
 	public void setAge(int ag){  
-		age = ag;  
+		age = age;  
 	}  
 	
 	public int getAge(){  
@@ -156,10 +152,16 @@ public class Thing {
 
 Using the `this.{fieldname} = {fieldname}` syntax eliminates the need for misspelling or writing unclear variables. 
 
-## Constructors: Set default values
-If you don't initialize a field to some value, when you try to run and print a getter method, what will happen? 
+## Constructors: Set initial values
+### The default constructor
+When an object is created, its constructor is always called.
 
-You will print the default value of the data type. Here's a list of the values: 
+If you do not write a constructor, Java provides one when the class is compiled. The constructor that Java provides is known as the **default constructor**.
+- It sets all of the object’s numeric fields to 0.
+- It sets all of the object’s boolean fields to false.
+- It sets all of the object’s reference variables to the special value null.
+
+Here are the defaults described for each data type: 
 
 | **Data Type** | **Default Value**           |
 | ------------- | --------------------------- |
@@ -168,57 +170,50 @@ You will print the default value of the data type. Here's a list of the values:
 | `int`         | `0`                         |
 | `long`        | `0L`                        |
 | `float`       | `0.0f`                      |
-| `double`      | `0.0d`                      |
+| `double`      | `0.0`                       |
 | `char`        | `'\u0000'` (null character) |
 | `boolean`     | `false`                     |
 | `String`      | `null`                      |
 
-When an object is created, its constructor is always called.
-
-If you do not write a constructor, Java provides one when the class is compiled. The constructor that Java provides is known as the **default constructor**.
-- It sets all of the object’s numeric fields to 0.
-- It sets all of the object’s boolean fields to false.
-- It sets all of the object’s reference variables to the special value null.
-
-When defining our Object class, however, we could set default values for fields. 
+Let's say we write a Java class called Car, which uses only the default constructor:
 ```java
-class Car {
-	private String make = "Ford";
-	private String model = "Escape";
+public class Car {  
+	private String make;  
+	private int year;  
+	private double gasTankMax;
+	private char grade;  
+	  
+	public String getMake() { return make; }  
+	public int getYear() { return year; }  
+	public double getGasTankMax() { return gasTankMax; }
+	public char getGrade() { return grade; }  
+	  
+	public static void getCarInfo(Car c){  
+		System.out.println(c.make);  
+		System.out.println(c.year);  
+		System.out.println(c.gasTankMax);  
+		System.out.println(c.grade);  
+	}  
+	  
+	public static void main(String[] args) {  
+		Car defaultCar = new Car();  
+		getCarInfo(defaultCar);  
+	}  
 }
 ```
 
-But this is not flexible. We are stuck with pre-defined values for our object (either the data type default, or hard-coded defaults like the Ford Escape above).
-
-Let's say we write a Java class called Car and it had the following properties:
+Here's what is printed when `getCarInfo(defaultCar)` runs:
 ```java
-public class Car {
-	private String make;
-	private String model;
-	private int year;
-	private String color;
-}
+null
+0
+0.0
+  //(There is a special character called NUL at the beginning of this line)
 ```
 
-We can add Getter and Setter methods to access and mutate the object data. But we can also create an object constructor to set the values at instance creation. Here's a constructor for the Car Object class:
+### Writing our own constructors 
+We can add Getter and Setter methods to access and mutate the object data. But we can also create object constructors to set the values at instance creation. 
 
-```java
-public class Car {
-	private String make;
-	private String model;
-	private int year;
-	private String color;
-
-	public Car(String mk, String mdl, int yr, String col){
-		make = mk;
-		model = mdl;
-		year = yr;
-		color = col;
-	}
-}
-```
-
-Here is an alternative way to write the above constructor using the `this` keyword:
+Here's an example constructor for the Car Object class:
 
 ```java
 public class Car {
@@ -232,20 +227,6 @@ public class Car {
 		this.model = model;
 		this.year = year;
 		this.color = color;
-	}
-}
-```
-
-Additionally, you can also create a multi-arg constructor like this:
-```java
-public class Car {
-	private String make;
-	private String model;
-	private int year;
-	private String color;
-
-	public Car(String make, String model, int year, String color){
-		this(make, model, year, color);
 	}
 }
 ```
@@ -290,7 +271,7 @@ public Rectangle(double length, double width){
 }
 ```
 
-If you try to create a Rectangle object with no-args, you will get an error! However, this can be remedied by adding a no-arg constructor to the Rectangle object class (like so):
+If you try to create a Rectangle object with no-args, you will get an error! However, this can be fixed by adding a no-arg constructor to the Rectangle object class (like so):
 
 ```java
 public Rectangle() {
@@ -304,9 +285,8 @@ This string literal is used to initialize a String object.
 For instance: 
 `String name = new String("Michael Jordan");`
 
-This creates a new reference variable name that points to a String object that represents the name “Michael Jordan”. Because they are used so often (String is a special object), we usually just say: ``
+This creates a new reference variable name that points to a String object that represents the name “Michael Jordan”. Because they are used so often (String is a special object), we usually just write: ``
 `String name = "Michael Jordan";`
-
 
 ## Calculated methods: Prevent Stale Data
 Above in our Rectangle class, we have a fifth method, `getArea()`, which looks like this:   
@@ -337,10 +317,7 @@ It would be impractical to use an `area` field in the Rectangle class because da
 To avoid stale data, it is best to calculate the value of that data within a method rather than store it in a variable.
 
 ## Instance Fields and Methods
-(Slide 37-38)
-The most important distinction between methods (chapter 5) is between Static and Non-Static methods (which are known as INSTANCE methods). 
-
-Instance methods allow you to create numerous instances of an Object class, and work with them independently. For example:
+Constructors allow you to create numerous instances of an Object class, and work with them independently. For example:
 
 ```java
 Rectangle kitchen = new Rectangle(12.5, 12.5);
@@ -348,7 +325,7 @@ Rectangle mainBedroom = new Rectangle(18.0, 13.0);
 Rectangle kidBedroom = new Rectangle(14.0, 8.0);
 ```
 
-Those three "rooms" hold different addresses in memory -- three different objects, three different instances of a "room" object class. In the memory location for each room is a field for length and width (slide 39).
+Those three "rooms" hold different addresses in memory -- three different objects, three different instances of a "room" object class. In the memory location for each room is a field for length and width (slide 37-39).
 
 ## Overloading methods
 Two or more methods in a class may have the same name as long as their parameter lists are different.
@@ -424,16 +401,11 @@ Car taylorCar = new Car("McLaren", "Light blue");
 Car seamusCar = new Car();  
 ```
 
-With Java, your constructor arguments must be in the correct order of an existing constructor.
-
+With Java, your constructor arguments must be in the correct order of an existing constructor. See the "Optional reading: Optional values" section for more about this.  
 ### Optional reading: Optional values
 Optional or named input parameters are not supported by default in Java! 😔😓 This is not cool! and definitely something I will look at after I am elected president of Java.  
 
 See [other-diversions/optional-and-named-arguments](other-diversions/optional-and-named-arguments.md) for an overview and workaround.
-
-There's a Java design pattern called the Builder pattern that provides a more flexible and readable way to create objects with multiple optional parameters.
-
-
 ## Uninitialized Local Reference Variables
 You can declare a variable in an Executable class of your custom type without initializing it. •A local reference variable must reference an object before it can be used, otherwise a compiler error will occur.
 
@@ -446,11 +418,10 @@ public class MyClass{
 }
 ```
 
-## Passing Objects as Arguments
+## Important!! Passing a Custom Object as a Method Input Parameter
 Remember when we said that Methods take input parameters in parentheses? Example:
 ```java
 public static void setLength(int length) {}
-
 public static void setName(String name) {}
 ```
 
@@ -472,6 +443,36 @@ public static void displayRectangle(Rectangle r){
 
 When you pass an object as an argument to a method, the method will almost always be **static** and all the instance methods are available. You can use this to access and mutate information about the particular object.
 
+Methods that take custom objects as input parameters can access the fields and methods of the object. You can leverage this fact to make repeatable code that works on ANY instance of the object. For example: 
+
+```java
+public class Car {
+	// ... fields, methods, constructors ...
+	
+	public static void printAutoInfo(String carOwner, Car c){  
+		System.out.println(carOwner.toUpperCase() + "'s DREAM AUTOMOBILE: ");  
+		System.out.println("Car Make: " + c.make);  
+		System.out.println("Car Model: " + c.model);  
+		System.out.println("Car Year: " + c.year);  
+		System.out.println("Car Color: " + c.color);  
+		System.out.println();  
+	}
+}
+```
+
+In our `TestCar` class, we can create as many car objects as we want, and then call the `printAutoInfo()` method and supply it the car owner and Car object. 
+
+```java
+Car firstCar = new Car("BMW", "3-series", 1997, "blue");  
+Car secondCar = new Car("Tesla", "Cybertruck", 2024, "matte black"); 
+Car thirdCar = new Car("Toyota", "Prius", 2024, "matte black");  
+Car fourthCar = new Car("Nissan", "Rogue", 2024, "white");  
+  
+Car.printAutoInfo("Michael", firstCar);  
+Car.printAutoInfo("Rudra", secondCar);  
+Car.printAutoInfo("Nolan", thirdCar);  
+Car.printAutoInfo("Dre", fourthCar);
+```
 
 ## Returning objects from methods
 Methods are not limited to returning the primitive data types. Methods can return references to objects as well. Just as with passing arguments, a copy of the object is not returned, only its address.
@@ -500,55 +501,6 @@ public class Car {
 }
 ```
 
-## LET'S BUILD A SOCIAL NETWORK
-
-1. Add a new package to Chapter 06 called `FriendBook`. 
-2. Create a `User` object class with these fields:
-
-```java
-private int id = generateID();
-private String username;
-private String password;
-private String school;
-private String quote;
-private List<User> friends
-```
-
-3. Write getter methods for all fields.
-4. Write setter methods for quote.
-5. Write a four-arg constructor to set the username, password, school, and quote. 
-6. Write a generateID() method that returns a Random int between 9999 and 99999.
-7. Make a file in the same package called `TestFriendBook`. Run the file:  
-
-```java
-// TestFriendbook.java
-package FriendBook;  
-  
-public class TestFriendBook {  
-	public static void main(String[] args) {  
-		User john = new User("John Doe", "password", "Springfield High", "I finally learned how to write without a pencil.");  
-		User jane = new User("Jane Smith", "password", "Riverview Academy", "I’m outta here! See you all at the 10-year reunion.");  
-		User alex = new User("Alex Johnson", "password", "Mountainview High", "I’m not a complete idiot. Some parts are missing.");  
-		User emily = new User("Emily Brown", "password", "Lakeside School", "I’m not late; I’m just early for tomorrow.");  
-		User michael = new User("Michael Davis", "password","Greenwood High", "I didn’t choose the school life; the school life chose me.");  
-		User sarah = new User("Sarah Wilson", "password", "Sunnydale High", "I’m 100% certain that I am 0% sure of what I’m doing.");  
-		User david = new User("David Martinez", "password","Riverside High", "I’m not arguing; I’m just explaining why I’m right.");  
-		User laura = new User("Laura Garcia", "password","Hilltop Academy", "I’m not lazy; I’m on energy-saving mode.");  
-		User james = new User("James Lee", "password","Westside High", "I’m not a procrastinator; I’m just extremely productive at unimportant things.");  
-		User sophia = new User("Sophia Kim", "password","Eastwood High", "I’m not weird; I’m limited edition.");  
-
-
-		System.out.println("ID: " + james.getId());  
-		System.out.println("Username: " + james.getUsername());  
-		System.out.println("School: " + james.getSchool());  
-		System.out.println("Quote: " + james.getQuote());
-		//User.printUserProfile(sophia);  
-		//System.out.println(sophia.toString());  
-	}  
-}
-```
-
-8. Move the print statements into the `User` class as a static void method called `printUserProfile` that takes `User u` as an input parameter. Uncomment the relevant line in `TestFriendbook` are see if it runs. 
 ## Custom object .toString() method
 All objects have a toString() method that returns the class name and a hash of the memory address of the object. It is also called implicitly whenever you try to print the object: 
 
@@ -603,15 +555,54 @@ System.out.println(sarah);
 ```
 
 ## Custom object .equals() method
-You can also override the default .equals() method of the object, which compares memory locations. You can set it to a value that makes sense within the context of the object or business requirements:
+You can also override the default .equals() method of the object, which compares memory locations. 
 
 ```java
-public boolean equals(User user2){  
-	if(username.equals(user2.username)){  
-			return true;  
-		} else {  
-			return false;  
-		}  
+public class EqualsCompareObjects {  
+	public static void main(String[] args) {  
+		Car myCar = new Car("Honda", "Civic", 2020, "blue");  
+		Car yourCar = new Car("Honda", "Civic", 2020, "blue");  
+		  
+		System.out.println(myCar);  
+		//Car@5f184fc6
+		System.out.println(yourCar);
+		//Car@3feba861  
 	}  
 }
+```
+
+Notice how above says `Car@xxxxx`. The JVM is printing the object type and the memory location in hexadecimal. 
+
+If you run `myCar.equals(yourCar)`, it evaluates to `false` because the objects are in different memory locations. 
+
+You can overwrite the equals() method by adding logic that makes sense within the context of the object or business requirements. For example, if you wanted to define "equal" for a User object as having the same username and school, you could write an equals method like so:
+
+```java
+public class User }
+	private String username;
+	private String school;
+	
+	// ...  constructors, setter, getter methods here ...  
+	
+	public boolean equals(User user2){  
+		if(username.equals(user2.username) && school.equals(user2.school)){  
+				return true;  
+			} else {  
+				return false;  
+			}  
+		}  
+	}
+}
+```
+
+As an input parameter, `.equals()` takes another instance of the same object. The `equals()` method now checks to see if both User fields are the same in user A and user B. If they are, this could tell us that we have a duplicate entry. For example: 
+
+```java
+User jill = new User("Jill Cooley", "Bentley University");
+User jillian = new User("Jill Cooley", "Bentley University");
+
+if (jill.equals(jillian)){
+	System.out.println("Possible duplicate entry");
+}
+
 ```
