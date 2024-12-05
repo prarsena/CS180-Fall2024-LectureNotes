@@ -417,7 +417,8 @@ public class FileDemoByPeterWithScanner {
         // Read the first line of the file.        
         String str = inputFile.nextLine();        
         System.out.println(str);        */  
-        // Read and print every line using a while loop and Scanner's hasNext() method.        while (inputFile.hasNext()) {  
+        // Read and print every line using a while loop and Scanner's hasNext() method.        
+        while (inputFile.hasNext()) {  
             String str = inputFile.nextLine();  
             if (str.contains("Second")){  
                 System.out.println("FOUND!");  

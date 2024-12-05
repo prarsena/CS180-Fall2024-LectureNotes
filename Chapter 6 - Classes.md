@@ -1,3 +1,4 @@
+Last updated: Wednesday, November 27, 2024
 ## TL;DR
 Every Java file is a class. We say it's either Executable or an Object class.
 - Executable classes have a `main` method which executes sequentially. (`TestRectangle`, `TestStudent`). These runnable classes. Inside of executable classes, you can create as many objects as you want, including custom Objects that you write. 
@@ -14,6 +15,17 @@ If you're able to run that file, you're good! 👍
 
 ## IntelliJ Chapter 08 Source Code
 Delete Stock Class Phase 1, 2, 3, and 4.
+
+## Recap: Static vs. instance methods
+Differences between `static` and instance From the [Java Language Specification](https://docs.oracle.com/javase/specs/jls/se23/html/jls-8.html#jls-8.4.3.2): 
+
+> A method that is declared `static` is called a _class method_.
+
+> A class method is **always invoked** **without reference to a particular object**. The declaration of a class method introduces a static context), which limits the use of constructs that refer to the current object. Notably, the keywords `this` and `super` are prohibited in a static context, as are unqualified references to instance variables, instance methods, and type parameters of lexically enclosing declarations.
+
+> A method that is not declared `static` is called an _instance method_, and sometimes called a non-`static` method.
+
+> An instance method is **always invoked with respect to an object**, which becomes the current object to which the keywords `this` and `super` refer during execution of the method body.
 
 ## Recap: Classes vs. Objects
 In lectures, I use the terms "Class" and "Object" interchangeably. I ask, "Can someone name a Java Object?" and say "Classes have methods", but I am referring to the same set of things. 
@@ -40,6 +52,7 @@ I will call this distinction: **Executable classes vs. object classes**.
 Object classes in Java have fields and methods. 
 
 - **Fields** are the data stored about an object (Rectangle has `length` and `width` fields). Fields are like variables except they have an access modifier (`private` or `public`). Fields should be `private` so that other classes don't access the data directly. 
+	- As said in the [Java Language specification](https://docs.oracle.com/javase/specs/jls/se23/html/jls-8.html#jls-8.3.1.1): "A `static` field, sometimes called a _class variable_, is incarnated when the class is initialized."
   
 - **Methods** are the operations that an object can perform. We know methods from Chapter 5. Examples for object classes include a **set** and a **get** method for each **field** (For example, `setLength` and `getLength`).
 	- A special type of method is a **Constructor**.  
@@ -418,7 +431,7 @@ public class MyClass{
 }
 ```
 
-## Important!! Passing a Custom Object as a Method Input Parameter
+## Important! Passing a Custom Object as a Method Input Parameter
 Remember when we said that Methods take input parameters in parentheses? Example:
 ```java
 public static void setLength(int length) {}
@@ -555,7 +568,7 @@ System.out.println(sarah);
 ```
 
 ## Custom object .equals() method
-You can also override the default .equals() method of the object, which compares memory locations. 
+The default .equals() method for a Java Object compares memory locations. We see this when we print a class object: 
 
 ```java
 public class EqualsCompareObjects {  
@@ -578,20 +591,15 @@ If you run `myCar.equals(yourCar)`, it evaluates to `false` because the objects 
 You can overwrite the equals() method by adding logic that makes sense within the context of the object or business requirements. For example, if you wanted to define "equal" for a User object as having the same username and school, you could write an equals method like so:
 
 ```java
-public class User }
+public class User {
 	private String username;
 	private String school;
 	
 	// ...  constructors, setter, getter methods here ...  
 	
 	public boolean equals(User user2){  
-		if(username.equals(user2.username) && school.equals(user2.school)){  
-				return true;  
-			} else {  
-				return false;  
-			}  
-		}  
-	}
+		return username.equals(user2.username) && school.equals(user2.school);
+	}  
 }
 ```
 
@@ -603,6 +611,43 @@ User jillian = new User("Jill Cooley", "Bentley University");
 
 if (jill.equals(jillian)){
 	System.out.println("Possible duplicate entry");
+}
+```
+
+You aren't required to write a custom .equals() method on the final homework assignment. But if you play around with this, you may notice inconsistent results. Because sometimes the JVM compiler will use the default equals() method rather than your custom method, when you call the .equals method on your custom objects, the comparison may be by memory location. 
+
+To write a more comprehensive custom .equals() method, you must use the @Override annotation, but the syntax is a bit more complicated. If you find yourself having issues, try to edit the following code to suit your purposes. If you are doing things the proper way, you must also override the hashCode() method, also included:
+
+```java
+@Override  
+public boolean equals(Object obj) {  
+	// first, if the memory locations match, return true. 
+	// they are the same object. 
+	if (this == obj) {  
+		return true;  
+	}  
+	
+	// next, if the comparison object is null,
+	// or the two class types aren't the same, return false.
+	// the objects cannot be equal. 
+	if (obj == null || getClass() != obj.getClass()) {  
+		return false;  
+	}  
+	
+	// finally, cast the comparison object to your custom type
+	// then evaluate your object fields for equality
+	// here, usernames and passwords must match. 
+	User comparisonObject = (User) obj;  
+	return username.equals(comparisonObject.username) 
+			&& password.equals(comparisonObject.password);  
+}  
+  
+@Override  
+public int hashCode() {  
+	// Import java.util.Objects 
+	// and provide the comparison field values
+	// this ensure that equal objects have the same hash code.
+	return Objects.hash(username, password);  
 }
 
 ```

@@ -1,3 +1,5 @@
+Last updated: Wednesday November 27, 2024
+
 Chapter 5 discusses the following main topics:
 - Introduction to Methods
 - Passing Arguments to a Method
@@ -185,6 +187,24 @@ public class MyClass {
     }
 }
 ```
+
+Differences between `static` and instance From the [Java Language Specification](https://docs.oracle.com/javase/specs/jls/se23/html/jls-8.html#jls-8.4.3.2): 
+
+> A method that is declared `static` is called a _class method_.
+
+> A class method is **always invoked** **without reference to a particular object**. The declaration of a class method introduces a static context), which limits the use of constructs that refer to the current object. Notably, the keywords `this` and `super` are prohibited in a static context, as are unqualified references to instance variables, instance methods, and type parameters of lexically enclosing declarations.
+
+> A method that is not declared `static` is called an _instance method_, and sometimes called a non-`static` method.
+
+> An instance method is **always invoked with respect to an object**, which becomes the current object to which the keywords `this` and `super` refer during execution of the method body.
+
+In Java, a commonly used static method is:
+
+`Math.max(double a, double b)`
+
+This static method has no owning object and does not run on an instance. It receives all information from its arguments
+### Why 'static'?
+ Static methods are called "static" because they are resolved at compile time based on the class they are called on and not dynamically as in the case with instance methods, which are resolved based on the runtime type of the object.
 
 ### Method Return Type
 The return type can be: 

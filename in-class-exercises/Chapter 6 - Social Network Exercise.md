@@ -1,3 +1,4 @@
+Last updated: Tuesday, November 26, 2025
 ## LET'S BUILD A SOCIAL NETWORK
 
 1. Add a new package to Chapter 06 called `FriendBook`. 
@@ -46,3 +47,4 @@ public class TestFriendBook {
 ```
 
 8. Move the print statements into the `User` class as a static void method called `printUserProfile` that takes `User u` as an input parameter. Uncomment the relevant line in `TestFriendbook` and see if it runs. 
+9. Change the `printUserProfile` method to a custom toString method. Add a print statement for a User object in `TestFriendbook`.
